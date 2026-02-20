@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票查询系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📈 股票查询系统</h1>
+            <p class="subtitle">Powered by Finnhub API</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="symbolInput" placeholder="输入股票代码 (如：AAPL, TSLA, MSFT)"
+                       autocomplete="off" list="symbolList">
+                <datalist id="symbolList">
+                    <!-- Will be populated dynamically -->
+                </datalist>
+                <button onclick="searchStock()" class="btn-primary">查询</button>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <div id="stockInfo" class="stock-info" style="display: none;">
+            <div class="card quote-card">
+                <h2 id="stockSymbol"></h2>
+                <div class="price-section">
+                    <span id="currentPrice" class="current-price"></span>
+                    <span id="priceChange" class="price-change"></span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">开盘价</span>
+                        <span id="openPrice" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">最高价</span>
+                        <span id="highPrice" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">最低价</span>
+                        <span id="lowPrice" class="stat-value"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">昨收价</span>
+                        <span id="prevClose" class="stat-value"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card profile-card" id="profileCard">
+                <h3>公司信息</h3>
+                <div id="companyProfile">
+                    <p><strong>公司名称:</strong> <span id="companyName"></span></p>
+                    <p><strong>交易所:</strong> <span id="exchange"></span></p>
+                    <p><strong>行业:</strong> <span id="industry"></span></p>
+                    <p><strong>CEO:</strong> <span id="ceo"></span></p>
+                    <p><strong>员工数:</strong> <span id="employees"></span></p>
+                    <p><strong>官网:</strong> <a id="website" target="_blank"></a></p>
+                    <p><strong>简介:</strong> <span id="description"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>加载中...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+
+        <footer>
+            <p>数据由 <a href="https://finnhub.io/" target="_blank">Finnhub.io</a> 提供</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
